@@ -1,0 +1,37 @@
+% Missionaries and cannibals problem
+
+{
+	% initial state
+	{src, 1, missionaries(3), cannibals(3)}.
+	{dst, 0, missionaries(0), cannibals(0)}.
+
+	% terminal state
+	{missionaries(M), cannibals(C), $p[]}, {$q[]} :- M > 0, M < C | eaten.
+	% {src, $p[]}, {dst, missionaries(3), cannibals(3), $q[]} :- solved.
+}.
+
+% cross the river
+m@@
+{{1, missionaries(A), $p}, {0, missionaries(B), $q}, @r}/ :-
+	A >= 1, C = A - 1, D = B + 1 |
+	{{0, missionaries(C), $p}, {1, missionaries(D), $q}, @r}.
+
+mm@@
+{{1, missionaries(A), $p}, {0, missionaries(B), $q}, @r}/ :-
+	A >= 2, C = A - 2, D = B + 2 |
+	{{0, missionaries(C), $p}, {1, missionaries(D), $q}, @r}.
+
+c@@
+{{1, cannibals(A), $p}, {0, cannibals(B), $q}, @r}/ :-
+	A >= 1, C = A - 1, D = B + 1 |
+	{{0, cannibals(C), $p}, {1, cannibals(D), $q}, @r}.
+
+cc@@
+{{1, cannibals(A), $p}, {0, cannibals(B), $q}, @r}/ :-
+	A >= 2, C = A - 2, D = B + 2 |
+	{{0, cannibals(C), $p}, {1, cannibals(D), $q}, @r}.
+
+mc@@
+{{1, missionaries(A), cannibals(U), $p}, {0, missionaries(B), cannibals(V), $q}, @r}/ :-
+	A >= 1, C = A - 1, D = B + 1, U >= 1, X = U - 1, Y = V + 1 |
+	{{0, missionaries(C), cannibals(X), $p}, {1, missionaries(D), cannibals(Y), $q}, @r}.

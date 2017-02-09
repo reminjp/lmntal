@@ -1,0 +1,18 @@
+% Fox, goose and bag of beans puzzle
+
+{
+	% initial state
+	{src, 1, fox, goose, beans}.
+	{dst, 0}.
+
+	% terminal state
+	{1, $p[]}, {0, fox, goose, $q[]} :- eaten.
+	{1, $p[]}, {0, goose, beans, $q[]} :- eaten.
+	% {src, $p[]}, {dst, fox, goose, beans, $q[]} :- solved.
+}.
+
+% cross the river
+n@@ {{1, $p}, {0, $q}, @r}/ :- {{0, $p}, {1, $q}, @r}.
+f@@ {{1, fox, $p}, {0, $q}, @r}/ :- {{0, $p}, {1, fox, $q}, @r}.
+g@@ {{1, goose, $p}, {0, $q}, @r}/ :- {{0, $p}, {1, goose, $q}, @r}.
+b@@ {{1, beans, $p}, {0, $q}, @r}/ :- {{0, $p}, {1, beans, $q}, @r}.
